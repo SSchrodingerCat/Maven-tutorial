@@ -355,6 +355,15 @@ mvn archetype:generate
 ```
 mvn org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-5:generate
 ```
-如果是第一次使用，mvn会在远程repo中下载archetype，要等待一定时间，以网络情况而定。紧接着我们会看到一段长长的输出，有很多可用的archetype供我们选择。包括著名的Appfuse项目的archetype，JPA项目的archetype等等。每一个archetype前面都会对应有一个编号，同时命令行会提示一个默认的编号，其对应的archetype为maven-archetype-quickstart，我们直接回车以选择该archetype，紧接着Maven会提示我们输入要创建项目的groupId、artifactId、 version、以及包名package。
+如果是第一次使用，mvn会在远程repo中下载archetype，要等待一定时间，以网络情况而定。紧接着我们会看到一段长长的输出，有很多可用的archetype供我们选择。包括著名的Appfuse项目的archetype，JPA项目的archetype等等。每一个archetype前面都会对应有一个编号，同时命令行会提示一个默认的编号，其对应的archetype为maven-archetype-quickstart，我们直接回车以选择该archetype，紧接着Maven会提示我们输入要创建项目的groupId、artifactId、 version、以及包名package，依照提示补充信息。
+
+----------
+## Maven使用过程中所遇问题 ##
+ 1. mvn archetype:generate卡在 Generating project in Interactive mode中不动
+在Generating project in Interactive mode之后会向远程服务器请求archetype catalog，而在默认的配置中archetypeCatalog==false，可以添加参数 -DarchetypeCatalog=internal使用本地catalog。
+```
+mvn archetype:generate -DarchetypeCatalog=internal
+```
+
 
 
