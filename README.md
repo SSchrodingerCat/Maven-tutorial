@@ -17,7 +17,7 @@ Maven的主要目标是允许开发人员在最短的时间内了解开发工作
 
 ----------
 ## Maven安装及配置 ##
-###linux系统###
+### linux系统 ###
 
  1. 进入maven官方万站下载界面查找最新版本的maven下载地址[maven官方下载地址](https://maven.apache.org/download.cgi)
  2. 以maven3.5.0版本的maven作为例子，在linux shell界面输入如下指令
@@ -26,7 +26,8 @@ Maven的主要目标是允许开发人员在最短的时间内了解开发工作
 wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
 ```
 
- 会在当前目录下载maven源码.
+ 会在当前目录下载maven源码
+ 
  3. 解压压缩包，指令如下:
 
 ``` 
@@ -52,8 +53,8 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-514.10.2.el7.x86_64", arch: "amd64", family: "unix"
 ```
 ----------
-## Maven核心概念介绍##
-####**pom**
+## Maven核心概念介绍 ##
+#### **pom**
 pom指project object model，一般使用pom.xml来体现，是maven工作的基本部件。可以将pom.xml文件简单理解成项目的配置文件。pom.xml包含了maven使用和生成项目的配置的信息，譬如说生成的目录为`target`，java文件存放在`src/main/java`，测试java文件存放在`src/rest/java`等。pom.xml替代了maven.xml，所有的插件都配置在pom.xml中，当要执行一个任务或者目标时，maven扫描当前项目的pom文件，获得需要的配置信息，并执行目标。
 *__Super POM__*
 超级pom文件是maven的默认pom，所有的pom都会继承这个pom文件除非明确的设置。超级pom中所有的配置都会被内置到你创建的项目的pom文件中，以下是maven2.0.x的超级pom文件。
@@ -187,7 +188,9 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
 </project>
 ```
 其他未定义的配置将会使用super pom中的配置。
+
 *__Project Inheritance__*
+
 在pom.xml内置到其他pom.xml文件的过程中，以下在pom中的元素会被合并：
 > - dependencies (依赖库)
 > - developers and contributors
@@ -197,6 +200,7 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
 > - resources(资源)
 
 *__Example__*
+
 将parent pom配置加入到child pom中：
 当pom的目录结构为以下情况时，可以使用如下pom添加
 ```
@@ -238,19 +242,30 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
   <artifactId>my-module</artifactId>
 </project>
 ```
+
 *__Project Aggregation__*
-这个很类似于inheritance，但是他会优先执行parent pom的配置
+
+这个很类似于inheritance，但是他会优先执行parent pom的配置。
+
 *__Project Interpolation and Variables__*
+
 pom.xml也可使用变量配置，譬如`<version>${project.version}</version>`需要注意的是变量的值由最后一个定义了他的child pom决定。
+
 [来源于apache maven pom官方介绍文档](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)，如有错误，希望大家联系我。
-####**Repositories**
+
+#### **Repositories**
+
 *__repository__*
+
 仓库是maven存储依赖库和已经生成的模块的地方。简而言之，repo存储了各位java前辈制造的轮子，我们可以通过repo下载我们想要的各种依赖，比如说spring框架API。
 严格来说。只有两种repo：本地的和远程的。本地的repo有从远程repo上下载的依赖的副本，当然还有你没有发布的项目临时副本。远程repo一般指那些可信第三方提供的下载依赖的地方。
+
 [来源于apache maven repo官方介绍文档](https://maven.apache.org/guides/introduction/introduction-to-repositories.html)，如有错误，希望大家联系我。
 
-####**Build Lifecycle**
+#### **Build Lifecycle**
+
 *__Build Lifecycle Basics__*
+
 maven的中心概念是基于生成周期的，这意味着生成一个特别的项目的过程是被详细定义的。
 一个开发者生成一个项目只需要学习很少的maven命令，pom文件会保证开发者得到他想要的结果。
 有三个内置的生存周期：**default**，**site**，**clean**，**default**处理你项目的部署，**clean**处理项目的清理，**site**处理生成设置文档。
@@ -266,6 +281,7 @@ maven的中心概念是基于生成周期的，这意味着生成一个特别的
 > - `deploy` -完成生成环境，将最终包的副本发送到远程repo中。
 
 *__Usual Command Line Calls__*
+
 在开发者环境中，可以使用命令行执行命令。譬如说：
 ```
 mvn install
@@ -275,7 +291,9 @@ mvn install
 ```
 mvn clean deploy
 ```
+
 *__A Build Phase is Made Up of Plugin Goals__*
+
 每一个生成时期又是由多个插件目标组成，一个插件目标代表了一项特定的任务去生成和管理项目。插件目标可能绑定在0个或多个生成时期上，对于没有绑定在任何生成时期的插件目标可以在生成周期之外单独执行。执行插件目标的顺序依靠哪些插件目标和生成时期被绑定的顺序，举例来说，以下命令中**clean**和**package**为生成时期，**dependency:copy-dependencies**为插件目标。
 ```
 mvn clean dependency:copy-dependencies package
@@ -319,12 +337,14 @@ mvn clean dependency:copy-dependencies package
 ```
 
 [来源于apache maven pom官方介绍文档](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)，如有错误，希望大家联系我。
-####**Archetype**
+
+#### **Archetype**
 简单来说，Archetype就是maven的项目模板工具，Archetype被定义成最初项目的原型。
+
 [来源于apache maven pom官方介绍文档](https://maven.apache.org/guides/introduction/introduction-to-archetypes.html)，如有错误，希望大家联系我
 
 ----------
-## Maven使用##
+## Maven使用 ##
 
  1. 创建工程
 创建项目骨架
@@ -336,7 +356,5 @@ mvn archetype:generate
 mvn org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-5:generate
 ```
 如果是第一次使用，mvn会在远程repo中下载archetype，要等待一定时间，以网络情况而定。紧接着我们会看到一段长长的输出，有很多可用的archetype供我们选择。包括著名的Appfuse项目的archetype，JPA项目的archetype等等。每一个archetype前面都会对应有一个编号，同时命令行会提示一个默认的编号，其对应的archetype为maven-archetype-quickstart，我们直接回车以选择该archetype，紧接着Maven会提示我们输入要创建项目的groupId、artifactId、 version、以及包名package。
- 2. 
-
 
 
