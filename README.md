@@ -179,7 +179,7 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
 > - 模块id，必须和groupId组成一个唯一标识，以便上传至共有repo `<artifactId>`
 > - 版本号 `<version>`
 以下是最小pom文件的例子：
-```
+```Apache
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mycompany.app</groupId>
@@ -209,7 +209,7 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
  |   `-- pom.xml
  `-- pom.xml
 ```
-```
+```Apache
 <project>
   <parent>
     <groupId>com.mycompany.app</groupId>
@@ -230,7 +230,7 @@ pom指project object model，一般使用pom.xml来体现，是maven工作的基
  `-- parent
      `-- pom.xml
 ```
-```
+```Apache
 <project>
   <parent>
     <groupId>com.mycompany.app</groupId>
@@ -311,7 +311,7 @@ mvn clean dependency:copy-dependencies package
 第二种方式是使用插件，插件是给maven提供目标的项目。一个插件可能有一个或多个目标，比如说，**Compiler plugin**就包含两个目标：**compile，testCompile**。但是给一个项目添加插件并不能提供足够的信息，你必须指定你想要在生成时运行的目标。
 配置的目标将会绑定在选择的packaging中,如果有多个goal绑定在同一个时期上，执行的顺序是先执行pckaging，再执行POM的配置。你可以使用`<executions>`标签获得更多的关于特定goals的控制信息。
 举一个例子，插件Medello默认被绑定在goal`<modello:java>` `<generate-sources>`时期。所以使用Modello插件,它从模型生成消息,并将其集成到构建。添加插件语法：
-```
+```Apache
 <project>
 ...
 	 <plugin>
