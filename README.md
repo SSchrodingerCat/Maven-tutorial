@@ -52,6 +52,20 @@ Java home: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-514.10.2.el7.x86_64", arch: "amd64", family: "unix"
 ```
+
+ 6. 由于默认的maven使用外国镜像，下载repo十分缓慢，此步骤添加国内配置，提高了repo下载速度。
+>- 打开maven根目录，找到conf->settings.xml（windows系统，在linux系统下，在conf目录下也有一个settings的文件）并打开。
+
+>- 在文件中找到\<mirrors>标签,在\<mirrors>标签中加入如下代码：
+ ```Apache
+ <mirror>
+      <id>alimaven</id>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <mirrorOf>central</mirrorOf>        
+    </mirror>
+   ```
+>- 这是阿里的一个maven核心镜像，速度飞一般，保存配置就设置成功了。
 ----------
 ## Maven核心概念介绍 ##
 #### **pom**
@@ -356,6 +370,21 @@ mvn archetype:generate
 mvn org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-5:generate
 ```
 如果是第一次使用，mvn会在远程repo中下载archetype，要等待一定时间，以网络情况而定。紧接着我们会看到一段长长的输出，有很多可用的archetype供我们选择。包括著名的Appfuse项目的archetype，JPA项目的archetype等等。每一个archetype前面都会对应有一个编号，同时命令行会提示一个默认的编号，其对应的archetype为maven-archetype-quickstart，我们直接回车以选择该archetype，紧接着Maven会提示我们输入要创建项目的groupId、artifactId、 version、以及包名package，依照提示补充信息。
+
+----------
+## Maven与eclipse连接 ##
+ 1. 下载maven插件
+大部分的eclipse发行版都包括了maven插件，如果没有maven插件的话，遵循以下步骤安装maven插件：
+ >- 依次点击help->install new software，进入instll界面
+ >- 在install界面点击add按钮，在location中输入地址 http://download.eclipse.org/technology/m2e/releases ，在Name中输入maven，点击OK。
+ >- 此时会看到找到了maven的插件，勾选所有插件，点击next，剩下的步骤略。
+ 2. 下载maven
+虽然eclipse-maven插件包括了一个精简版的maven，但是还是推荐自己下载maven与eclipse连接。下载maven步骤参见maven安装与配置。
+ 3. 连接maven与eclipse
+ >- eclipse界面下一次点击window->preferences，进入Preferences界面
+ >- 选中maven->Installations标签
+ >- 点击add，在add界面中，将Installation home设置为安装的外部maven的根目录，点击finish。
+ >- 应用配置，大功告成。
 
 ----------
 ## Maven使用过程中所遇问题 ##
